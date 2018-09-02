@@ -1,0 +1,30 @@
+Week 2 
+
+Security Basics:
+	Hacker - System level code programmer
+		 White Hat vs. Black Hat
+		Attempt to violate one of the C-I-A triad
+		C - Confidentiality
+		I - Integrity
+		A - Availability	
+	Nonrepudiation - Undeniable accountability of an action
+
+	Title 10 - Armed Forces rules
+	Title 50 - National Defense (CIA, NSA, FBI)
+	Title 18 - Crimes
+
+	Ethical Hacking
+		Follow normal rules of life when on a network
+		IEEE Code of Conduct
+
+	AAA
+	
+		-Authentication
+		-Authorization
+		-Accounting
+
+	Attack Vectors - How do we weaponize these things to gain access to a system
+
+Quizes - Due for nexr week
+
+

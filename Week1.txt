@@ -1,0 +1,27 @@
+Week 1
+
+Vagrant - Helps control VMs, we will be using this to manage Oracle's VMs
+
+*Before the start of the course I had already downloaded and installed Oracle VM and Vagrant
+	NOTE: Linux apt library only has Vagrant 1.8.1. Use wget to get latest version
+Went over notes on what Cybersecurity is and what it means to be a hacker, check Canvas for videos and notes
+
+
+***Lab: Set Up PentestEnv***
+
+* Xavier's bandwidth is to slow to download VM's during classtime so I followed PDF instructions of assignment at home.
+
+* Ran into problems using Vagrant trying to open 2 VMs at the same time. (Kali is fine)
+
+* Reason is because I use 'sudo' on 'vagrant up' command. This made all files I created under ownership of the root user, giving me a permission denied error.
+	ie: Vagrant needs to be owned by local user
+
+* Fixed permissions with help from Mr. Rowland
+	$sudo chown -R edwin:edwin ~/.vagrant.d/
+	$sudo chown -R edwin:edwin ~/380lab/pentest-env/vagrant/machines
+
+*After this vagrant rebuilt the machines to be owned by local user
+
+*Copy machines over----- $cp examples/csci380.pentestrc .pentestrc
+
+*If problems will arise because you were messing with the GUI and vagrant and youre locked from things try $vagrant destroy "name"
