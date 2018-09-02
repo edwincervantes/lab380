@@ -1,4 +1,4 @@
-Week 1
+Week 1 21AUG18
 
 Vagrant - Helps control VMs, we will be using this to manage Oracle's VMs
 
