@@ -1,0 +1,81 @@
+Week 3   4SEP2018
+
+*Beginning of class we went over recon and how important it is when it comes to ethical hacking.
+
+-Social Engineering
+	Finding as much information on a person you can extract from them personally
+-Social Networking
+	Follow target's habits and hobbies
+
+______________________________________________________________________________________________________________________
+Lab: Reconnaissance, Open Source Intelligence
+
+* Researching Rozzi fireworks
+* Cincinnati based fireworks company that puts on very famous fireworks shows across the world
+* http://www.rozzifireworks.com/ ---- Main domain
+	*Paolo Rozzi - Founder
+	*Nancy Rozzi - President
+	*Joe Rozzi - VP of Sales/Pyro Designer
+	*Micharl Lutz - VP of Finance and Operations, Soundtrack Engineer and Pyrotechnic Display Designer
+	*Kathy Rozzi - Client Liaison and Pre-Production
+* http://shop.rozzifireworks.com/ ----Store
+* https://www.facebook.com/rozzifireworks/
+* https://en.wikipedia.org/wiki/Cincinnati_Bell/WEBN_Riverfest ----- Fireworks show Rozzi puts on every year during labor day weekend in home city, Cincinnati
+* https://www.glassdoor.com/Overview/Working-at-Rozzi-Fireworks-EI_IE2184067.11,26.htm
+
+*Local store
+
+
+Wednesday – Saturday
+10am – 6pm
+
+10059 Loveland Madeira Rd
+Loveland, OH 45140
+
+contact : info@rozzifireworks.com
+
+
+*Company information and main office
+
+
+
+ADDRESS
+
+MAIN OFFICE
+118 Karl Brown Way
+Loveland OH 45140 US
+(513) 683-0620
+
+ 
+
+COMPANY DIRECTORY
+
+NANCY ROZZI, PRESIDENT
+nancyrozzi@rozzifireworks.com
+513-683-0620
+60+ years
+
+JOE ROZZI, VP SALES
+joe@rozzifireworks.com
+
+MICHAEL LUTZ, VICE PRESIDENT
+michael@rozzifireworks.com
+
+KATHY ROZZI
+kathy@rozzifireworks.com
+
+JIM MORGALES, LOGISTICS
+jim@rozzifireworks.com
+
+MIKE MURTLAND, FACILITY MANAGER/PYRO TECHNICIAN
+murtland@rozzifireworks.com
+
+BILL ZEILMAN, PYRO TECHNICIAN
+william@rozzifireworks.com
+
+RUSS LITTLE, COMPLIANCE
+russ@rozzifireworks.com
+
+ALL OTHER INQUIRIES
+info@rozzifireworks.com
+
