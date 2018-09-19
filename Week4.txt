@@ -1,0 +1,180 @@
+
+Week 4 11SEP2018
+
+Set route default - ip route add default via 10.0.2.2 ##Connects you to rest of the world
+
+
+EJ Cervantes
+CSCI 380, Fall 2018
+Lab: Network Scanning
+Date: 4 SEP2018
+
+1)root@kali:~# ip route show table main
+10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15
+172.28.128.0/24 dev eth1 proto kernel scope link src 172.28.128.3
+
+2)root@kali:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         _gateway        0.0.0.0         UG    0      0        0 eth0
+10.0.2.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
+172.28.128.0    0.0.0.0         255.255.255.0   U     0      0        0 eth1
+root@kali:~# ip route del default
+root@kali:~# route
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+10.0.2.0        0.0.0.0         255.255.255.0   U     0      0        0 eth0
+172.28.128.0    0.0.0.0         255.255.255.0   U     0      0        0 eth1
+
+
+
+3)root@kali:~# ip address
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:c6:4b:23 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fec6:4b23/64 scope link
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:3f:e6:47 brd ff:ff:ff:ff:ff:ff
+    inet 172.28.128.3/24 brd 172.28.128.255 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe3f:e647/64 scope link
+       valid_lft forever preferred_lft forever
+
+
+
+4)root@kali:~# ifconfig
+  eth1 - inet 172.28.128.3  netmask 255.255.255.0
+
+
+5)
+a)root@kali:~# nmap -n -sn -PR 172.28.128.0/24 ##It is 24 bc it represents the first 24 bits. of 255.255.255
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-09-18 19:06 EDT
+Nmap scan report for 172.28.128.1
+Host is up (0.00014s latency).
+MAC Address: 0A:00:27:00:00:00 (Unknown)
+Nmap scan report for 172.28.128.2
+Host is up (0.00010s latency).
+MAC Address: 08:00:27:D3:3F:42 (Oracle VirtualBox virtual NIC)
+Nmap scan report for 172.28.128.4
+Host is up (0.00018s latency).
+MAC Address: 08:00:27:90:AF:DC (Oracle VirtualBox virtual NIC)
+Nmap scan report for 172.28.128.3
+Host is up.
+Nmap done: 256 IP addresses (4 hosts up) scanned in 2.03 seconds
+
+
+b) Kali, metasploitable2, host system. unknown
+
+c)-n ----- Never do DNS resolution
+  -sn ----- Do not do a port scan
+  -PR ----- ARP ping/Scan ethernet LAN
+
+
+6)root@kali:~# arp-scan --interface=eth1 --localnet
+Interface: eth1, datalink type: EN10MB (Ethernet)
+Starting arp-scan 1.9 with 256 hosts (http://www.nta-monitor.com/tools/arp-scan/)
+172.28.128.1    0a:00:27:00:00:00       (Unknown)
+172.28.128.2    08:00:27:9f:b0:81       CADMUS COMPUTER SYSTEMS
+172.28.128.4    08:00:27:90:af:dc       CADMUS COMPUTER SYSTEMS
+
+3 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.9: 256 hosts scanned in 1.905 seconds (134.38 hosts/sec). 3 responded
+
+
+
+7)root@kali:~# nmap -sS -Pn 172.28.128.0/24
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-09-18 19:28 EDT
+Nmap scan report for 172.28.128.1
+Host is up (0.000058s latency).
+All 1000 scanned ports on 172.28.128.1 are closed
+MAC Address: 0A:00:27:00:00:00 (Unknown)
+
+Nmap scan report for 172.28.128.2
+Host is up (0.00015s latency).
+All 1000 scanned ports on 172.28.128.2 are filtered
+MAC Address: 08:00:27:D3:3F:42 (Oracle VirtualBox virtual NIC)
+
+Nmap scan report for 172.28.128.4
+Host is up (0.00023s latency).
+Not shown: 977 closed ports
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+23/tcp   open  telnet
+25/tcp   open  smtp
+53/tcp   open  domain
+80/tcp   open  http
+111/tcp  open  rpcbind
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+512/tcp  open  exec
+513/tcp  open  login
+514/tcp  open  shell
+1099/tcp open  rmiregistry
+1524/tcp open  ingreslock
+2049/tcp open  nfs
+2121/tcp open  ccproxy-ftp
+3306/tcp open  mysql
+5432/tcp open  postgresql
+5900/tcp open  vnc
+6000/tcp open  X11
+6667/tcp open  irc
+8009/tcp open  ajp13
+8180/tcp open  unknown
+MAC Address: 08:00:27:90:AF:DC (Oracle VirtualBox virtual NIC)
+
+Nmap scan report for 172.28.128.3
+Host is up (0.0000040s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 256 IP addresses (4 hosts up) scanned in 6.01 seconds
+
+8)root@kali:~# unicornscan -msf 172.28.128.4
+TCP open                     ftp[   21]         from 172.28.128.4  ttl 64
+TCP open                     ssh[   22]         from 172.28.128.4  ttl 64
+TCP open                  telnet[   23]         from 172.28.128.4  ttl 64
+TCP open                    smtp[   25]         from 172.28.128.4  ttl 64
+TCP open                  domain[   53]         from 172.28.128.4  ttl 64
+TCP open                    http[   80]         from 172.28.128.4  ttl 64
+TCP open                  sunrpc[  111]         from 172.28.128.4  ttl 64
+TCP open             netbios-ssn[  139]         from 172.28.128.4  ttl 64
+TCP open            microsoft-ds[  445]         from 172.28.128.4  ttl 64
+TCP open                    exec[  512]         from 172.28.128.4  ttl 64
+TCP open                   login[  513]         from 172.28.128.4  ttl 64
+TCP open                   shell[  514]         from 172.28.128.4  ttl 64
+TCP open              ingreslock[ 1524]         from 172.28.128.4  ttl 64
+TCP open                   shilp[ 2049]         from 172.28.128.4  ttl 64
+TCP open                   mysql[ 3306]         from 172.28.128.4  ttl 64
+TCP open                  distcc[ 3632]         from 172.28.128.4  ttl 64
+TCP open              postgresql[ 5432]         from 172.28.128.4  ttl 64
+TCP open                     x11[ 6000]         from 172.28.128.4  ttl 64
+TCP open                     irc[ 6667]         from 172.28.128.4  ttl 64
+TCP open                 msgsrvr[ 8787]         from 172.28.128.4  ttl 64
+
+
+9)
+a)Packets that list active machines are placed in the ARP table listing their IP and cached MAC address
+
+b)An ARP reply initiated from a broadcast and replied with a unicast message
+
+c)Machines that are not active do not send out a unicast response to broadcast requests asking Who is This?
+
+10)
+a)ARP scan with a request through broadcast
+
+b)ARP scan with reply to requested unicast
+
+c)There is no response
+
