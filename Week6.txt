@@ -1,0 +1,122 @@
+Edwin Cervantes
+CSCI 380, Fall 2018
+Lab Sniffing, ARP Posisoning
+29SEP2018
+
+1)
+a) First get IP address of Kali-clone and try to ping it from Kali
+
+Kali -
+ping 172.28.128.4
+PING 172.28.128.4 (172.28.128.4) 56(84) bytes of data.
+64 bytes from 172.28.128.4: icmp_seq=1 ttl=64 time=0.636 ms
+64 bytes from 172.28.128.4: icmp_seq=2 ttl=64 time=0.247 ms
+64 bytes from 172.28.128.4: icmp_seq=3 ttl=64 time=0.651 ms
+64 bytes from 172.28.128.4: icmp_seq=4 ttl=64 time=0.449 ms
+64 bytes from 172.28.128.4: icmp_seq=5 ttl=64 time=0.863 ms
+64 bytes from 172.28.128.4: icmp_seq=6 ttl=64 time=1.08 ms
+64 bytes from 172.28.128.4: icmp_seq=7 ttl=64 time=0.974 ms
+^C
+--- 172.28.128.4 ping statistics ---
+7 packets transmitted, 7 received, 0% packet loss, time 6060ms
+rtt min/avg/max/mdev = 0.247/0.700/1.081/0.273 ms
+
+Kali-Clone
+PING 172.28.128.3 (172.28.128.3) 56(84) bytes of data.
+64 bytes from 172.28.128.3: icmp_seq=1 ttl=64 time=0.394 ms
+64 bytes from 172.28.128.3: icmp_seq=2 ttl=64 time=0.954 ms
+64 bytes from 172.28.128.3: icmp_seq=3 ttl=64 time=0.301 ms
+64 bytes from 172.28.128.3: icmp_seq=4 ttl=64 time=0.370 ms
+ 64 bytes from 172.28.128.3: icmp_seq=5 ttl=64 time=0.701 ms
+64 bytes from 172.28.128.3: icmp_seq=6 ttl=64 time=0.444 ms
+^C
+--- 172.28.128.3 ping statistics ---
+6 packets transmitted, 6 received, 0% packet loss, time 5096ms
+rtt min/avg/max/mdev = 0.301/0.527/0.954/0.229 ms
+
+b)The networks are  already on Host-Only Adapter
+
+
+2)
+Kali-rolling: ether 08:00:27:23:1a:fa  txqueuelen 1000  (Ethernet)
+
+Kali-clone: ether 08:00:27:de:de:94  txqueuelen 1000  (Ethernet)
+
+Metasploitable2: Ethernet  HWaddr 08:00:27:27:cc:8e  
+
+
+3)
+root@kali:~# tcpdump -i eth1 -e -n 'host 172.28.128.4'
+root@kali:~# arp -d 172.28.128.3; hping3 -i 3 -S -p 80 172.28.128.3
+No ARP entry for 172.28.128.3
+HPING 172.28.128.3 (eth1 172.28.128.3): S set, 40 headers + 0 data bytes
+
+a)Everytime a ping is sent to the attacking machine, the attacking machine recieves the ping.
+
+b)These are ARP request packets
+
+c)Kali-clone is sending a ping out to kali requesting to know who it is through ARP packets.
+These packets are being recorded from the tcpdump being ran on the kali VM
+
+
+4)
+a)root@kali:~# arp
+Address                  HWtype  HWaddress           Flags Mask            Iface
+10.0.2.2                 ether   52:54:00:12:35:02   C                     eth0
+172.28.128.3             ether   08:00:27:23:1a:fa   C                     eth1
+10.0.2.3                 ether   52:54:00:12:35:03   C                     eth0
+172.28.128.2             ether   08:00:27:69:1f:a5   C                     eth1
+
+b)msfadmin@metasploitable:~$ arp                                                                         │                                                                                                    
+Address                  HWtype  HWaddress           Flags Mask            Iface                       │                                                                                                    
+10.0.2.3                 ether   52:54:00:12:35:03   C                     eth0                        │                                                                                                    
+10.0.2.2                 ether   52:54:00:12:35:02   C                     eth0 
+
+
+5)
+a)There is a lot of talking back and forth between the targer (kali-clone) and the webserver(metasploitable2)
+
+
+6)
+a)
+kali-clone: root@kali:~# arp
+Address                  HWtype  HWaddress           Flags Mask            Iface
+172.28.128.5             ether   08:00:27:23:1a:fa   C                     eth1
+10.0.2.2                 ether   52:54:00:12:35:02   C                     eth0
+172.28.128.3             ether   08:00:27:23:1a:fa   C                     eth1
+10.0.2.3                 ether   52:54:00:12:35:03   C                     eth0
+172.28.128.2             ether   08:00:27:69:1f:a5   C                     eth1
+
+b)
+metasploitable2:msfadmin@metasploitable:~$ arp                                                                         │
+Address                  HWtype  HWaddress           Flags Mask            Iface                       │
+172.28.128.4             ether   08:00:27:23:1A:FA   C                     eth1                        │
+10.0.2.2                 ether   52:54:00:12:35:02   C                     eth0                        │
+10.0.2.2                 ether   52:54:00:12:35:02   C                     eth0   
+
+c)The entries are different. Now the webserver and the target are talking back and forth and have each other's MAC addresses
+
+7)
+a)root@kali:~# tcpdump -i eth1 -e -n 'arp and host 172.28.128.4'
+tcpdump: verbose output suppressed, use -v or -vv for full protocol decode
+listening on eth1, link-type EN10MB (Ethernet), capture size 262144 bytes
+20:59:27.750270 08:00:27:23:1a:fa > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 42: Request who-has 172.28.128.4 tell 172.28.128.3, length 28
+20:59:27.750511 08:00:27:de:de:94 > 08:00:27:23:1a:fa, ethertype ARP (0x0806), length 60: Reply 172.28.128.4 is-at 08:00:27:de:de:94, length 46
+20:59:28.781374 08:00:27:23:1a:fa > 08:00:27:de:de:94, ethertype ARP (0x0806), length 42: Reply 172.28.128.5 is-at 08:00:27:23:1a:fa, length 28
+20:59:28.781570 08:00:27:23:1a:fa > 08:00:27:27:cc:8e, ethertype ARP (0x0806), length 42: Reply 172.28.128.4 is-at 08:00:27:23:1a:fa, length 28
+20:59:29.793868 08:00:27:23:1a:fa > 08:00:27:de:de:94, ethertype ARP (0x0806), length 42: Reply 172.28.128.5 is-at 08:00:27:23:1a:fa, length 28
+20:59:29.793994 08:00:27:23:1a:fa > 08:00:27:27:cc:8e, ethertype ARP (0x0806), length 42: Reply 172.28.128.4 is-at 08:00:27:23:1a:fa, length 28
+20:59:30.810254 08:00:27:23:1a:fa > 08:00:27:de:de:94, ethertype ARP (0x0806), length 42: Reply 172.28.128.5 is-at 08:00:27:23:1a:fa, length 28
+
+
+This means that from my attacking kali machine I can see how the target VM is talking to the webserver
+
+b)After I stopped the attack there was nothing for the TCP dump to detect so no new packets came through and showed in the table
+
+
+8)
+a)I have the same browser paged pulled up and can see what they're viewing from my attacking VM
+
+
+9)
+a)It is impacted during the attack but not in real time it is slightly delayed
