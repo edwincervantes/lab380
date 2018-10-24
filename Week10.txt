@@ -1,0 +1,76 @@
+EJ Cervantes
+CSCI 380
+Lab C - Assembly pt 2
+28OCT2018
+
+Host runs a VB
+Inside VB there is a docker which has a container of Linux arm binaries
+Inside the docker we are running QEMU-ARM which runs the .c/.s files we would like to execute
+
+
+
+
+1)
+bl  puts 
+
+2)
+int puts(const char*)  -  A C command used to output a string
+
+3)
+For printf() C function, ARM implements it by adding r registers onto the stack as strings with r0 being the pointer
+
+4)
+No the prototypes stay the same because ARM and Intel x86 are both translating their own version of a C funct
+
+5)
+        push    {fp, lr}
+        add     fp, sp, #4
+        sub     sp, sp, #8
+        str     r0, [fp, #-8]
+        str     r1, [fp, #-12]
+        movw    r0, #:lower16:.LC0
+        movt    r0, #:upper16:.LC0
+
+6)
+In both architectures, strings are passed through onto a stack
+
+7)
+Nothing changes in our hello.s using arm7 architecture after changing return(0) to return printf()
+
+8)
+sub     sp, fp, #4
+@ sp needed
+pop     {fp, pc}
+
+9)
+8 instructions
+
+10)
+3 instructions
+
+11)
+1 instruction
+
+12)
+12 total instructions 
+
+13)
+/vagrant/src/hello/hello.c:10
+}
+1042c:       e1a00003        mov     r0, r3
+10430:       e24bd004        sub     sp, fp, #4
+10434:        e8bd8800        pop     {fp, pc}
+
+14)
+With the optimized version, the prolouge is much longer setting up main() before being executed and epilouge were much more shorter with a lot less instructions
+
+15)
+printf is actually returned this time
+
+16)
+Yes. This is how it is passed into printf in ARM
+
+000102ec <printf@plt>:
+ 102ec:       e28fc600        add     ip, pc, #0, 12
+ 102f0:       e28cca10        add     ip, ip, #16, 20 ; 0x10000
+ 102f4:       e5bcfd18        ldr     pc, [ip, #3352]!        ; 0xd18
