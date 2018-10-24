@@ -1,0 +1,38 @@
+EJ Cervantes
+CSCI380 Fall 2018
+Lab: C and Assembly Part 1
+21 OCT 2018
+
+1) call    puts
+
+2)int puts(const char *s);
+
+3)int printf(const char *format, ...); 
+
+4)pushl   $.LC0 
+
+5) Does not call puts anymore calls printf and uses a stack 
+
+6) Cleans up stack and hits return function and is passed back in ecx
+
+7) 7
+
+8) 4
+
+9) 1 
+
+10) 11
+
+11) Disassembly of section .fini:                                                                         │
+                                                                                                      │
+00001244 <_fini>:                                                                                     │
+_fini():                                                                                              │
+    1244:       53                      push   %ebx                                                   │
+    1245:       83 ec 08                sub    $0x8,%esp                                              │
+    1248:       e8 63 fe ff ff          call   10b0 <__x86.get_pc_thunk.bx>                           │
+    124d:       81 c3 b3 2d 00 00       add    $0x2db3,%ebx                                           │
+    1253:       83 c4 08                add    $0x8,%esp                                              │
+    1256:       5b                      pop    %ebx                                                   │
+    1257:       c3                      ret     
+
+12)

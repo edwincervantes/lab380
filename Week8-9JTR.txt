@@ -1,0 +1,166 @@
+EJ Cervantes
+CSCI380
+JTR
+9 OCT 2018
+
+1)
+edwin@ejs-laptop:~/380lab/pentest-env$ vagrant status
+│Current machine states:
+│
+│kali                      running (virtualbox)
+│kali-clone                poweroff (virtualbox)
+│metasploitable2           poweroff (virtualbox)
+│metasploitable3-win2008r2 not created (virtualbox)
+│primer                    not created (virtualbox)
+│winxpie8                  running (virtualbox) 
+│
+│This environment represents multiple VMs. The VMs are all listed
+│above with their current state. For more information about a specific  
+│VM, run `vagrant status NAME`.
+
+2)
+root@kali:/vagrant# ls -l
+total 120
+-rw-rw-r-- 1 root root   969 Aug 26 11:33 Berksfile
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 bin
+-rw-rw-r-- 1 root root  3008 Aug 26 11:33 ChangeLog
+-rw-rw-r-- 1 root root  6868 Aug 26 11:33 checksums.txt
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 chef-repo
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 cookbook
+-rw-rw-r-- 1 root root 35147 Aug 26 11:33 COPYING
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 data
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 dockerfiles
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 docs
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 examples
+-rw-rw-r-- 1 root root    89 Aug 26 11:33 Gemfile
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 instances
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 lib
+-rw-rw-r-- 1 root root  4368 Aug 26 11:33 README.md
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 scripts
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 ssh-keys
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 targets
+drwxrwxr-x 1 root root  4096 Aug 26 11:33 utils
+-rw-rw-r-- 1 root root   851 Aug 26 11:33 Vagrantfile
+
+3)
+root@kali:~# ip route add default via 10.0.2.2
+root@kali:~# ip route
+default via 10.0.2.2 dev eth0 
+10.0.2.0/24 dev eth0 proto kernel scope link src 10.0.2.15 
+172.28.128.0/24 dev eth1 proto kernel scope link src 172.28.128.4 
+
+4)
+root@kali:~# apt-file -h |head -5
+
+apt-file [options] action [pattern]
+apt-file [options] -f action <file>
+apt-file [options] -D action <debfile>
+
+5)root@kali:/vagrant/src/JohnTheRipper/run# ls
+1password2john.py              genmkvpwd              office2john.py
+7z2john.pl                     gpg2john               openbsd_softraid2john.py
+adxcsouf2john.py               hccap2john             openssl2john.py
+aem2john.py                    hccapx2john.py         padlock2john.py
+aix2john.pl                    hextoraw.pl            pass_gen.pl
+aix2john.py                    htdigest2john.py       password.lst
+alnum.chr                      hybrid.conf            pcap2john.py
+alnumspace.chr                 ibmiscanner2john.py    pdf2john.pl
+alpha.chr                      ikescan2john.py        pem2john.py
+andotp2john.py                 ios7tojohn.pl          pfx2john.py
+androidbackup2john.py          itunes_backup2john.pl  pgpdisk2john.py
+androidfde2john.py             iwork2john.py          pgpsda2john.py
+ansible2john.py                john                   pgpwde2john.py
+apex2john.py                   john.bash_completion   potcheck.pl
+applenotes2john.py             john.conf              prosody2john.py
+aruba2john.py                  john.zsh_completion    pse2john.py
+ascii.chr                      jtrconf.pm             ps_token2john.py
+axcrypt2john.py                jtr_rulez.pm           putty2john
+base64conv                     kdcdump2john.py        pwsafe2john.py
+benchmark-unify                keepass2john           racf2john
+best64.conf                    kerberom               radius2john.pl
+bestcrypt2john.py              keychain2john.py       rar2john
+bitcoin2john.py                keyring2john.py        raw2dyna
+bitlocker2john                 keystore2john.py       regex_alphabets.conf
+bitshares2john.py              kirbi2john.py          relbench
+bitwarden2john.py              known_hosts2john.py    repeats16.conf
+bks2john.py                    korelogic.conf         repeats32.conf
+blockchain2john.py             krb2john.py            rexgen2rules.pl
+calc_stat                      kwallet2john.py        rulestack.pl
+ccache2john.py                 lanman.chr             sap2john.pl
+cisco2john.pl                  lastpass2john.py       sha-dump.pl
+codepage.pl                    latin1.chr             sha-test.pl
+cprepair                       ldif2john.pl           signal2john.py
+cracf2john.py                  leet.pl                sipdump2john.py
+dashlane2john.py               lib                    ssh2john.py
+deepsound2john.py              libreoffice2john.py    sspr2john.py
+dictionary.rfc2865             lion2john-alt.pl       staroffice2john.py
+digits.chr                     lion2john.pl           stats
+dmg2john                       lm_ascii.chr           strip2john.py
+dmg2john.py                    lotus2john.py          telegram2john.py
+dns                            lower.chr              tezos2john.py
+DPAPImk2john.py                lowernum.chr           tgtsnarf
+dumb16.conf                    lowerspace.chr         truecrypt2john.py
+dumb32.conf                    luks2john.py           uaf2john
+dynamic.conf                   mailer                 unafs
+dynamic_disabled.conf          makechr                undrop
+dynamic_flat_sse_formats.conf  mcafee_epo2john.py     unique
+ecryptfs2john.py               mkvcalcproba           unrule.pl
+ejabberd2john.py               ml2john.py             unshadow
+electrum2john.py               monero2john.py         upper.chr
+encfs2john.py                  money2john.py          uppernum.chr
+enpass2john.py                 mongodb2john.js        utf8.chr
+ethereum2john.py               mozilla2john.py        vdi2john.pl
+filezilla2john.py              multibit2john.py       wpapcap2john
+fuzz.dic                       neo2john.py            zip2john
+fuzz_option.pl                 netntlm.pl             ztex
+geli2john.py                   netscreen.py
+genincstats.rb                 network2john.lua
+
+6)
+root@kali:/vagrant/src/JohnTheRipper/run# john -h | head -1
+John the Ripper 1.8.0.13-jumbo-1-bleeding-4747ba441 2018-10-09 16:45:20 +0200 OMP [linux-gnu 64-bit x86_64 AVX AC]
+
+7)
+root@kali:/vagrant/src/JohnTheRipper/run# john testzip-hash.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (PKZIP [32/64])
+Warning: OpenMP is disabled; a non-OpenMP build may be faster
+Press 'q' or Ctrl-C to abort, almost any other key for status
+0g 0:00:00:15  3/3 0g/s 5075Kp/s 5075Kc/s 5075KC/s bunejoat..bunejras
+0g 0:00:00:17  3/3 0g/s 5288Kp/s 5288Kc/s 5288KC/s lhkm2f..lhkm05
+0g 0:00:00:18  3/3 0g/s 5369Kp/s 5369Kc/s 5369KC/s lr1103..lr113r
+0g 0:00:00:19  3/3 0g/s 5468Kp/s 5468Kc/s 5468KC/s aicpsp..aicp48
+0g 0:00:00:20  3/3 0g/s 5542Kp/s 5542Kc/s 5542KC/s swedsoe..swedum4
+
+8)
+klog - 123456789
+sys - batman
+
+***********NOTE***************************************************************************************************************************
+Since last week I upgraded my Ubuntu LTS to 18.04 Bionic Beaver. With this messed up some pythong files that messed with virtual box.
+I removed VB then reinstalled, follow this link for instructions.
+https://websiteforstudents.com/install-the-latest-virtualbox-on-ubuntu-18-04-lts/
+**********************************************************************************************************************
+
+9)
+root@kali:~# cat winhash                                                                              │    kali: your host and reload your VM.
+Administrator:500:b34ce522c3e4c87722c34254e51bff62:fc525c9683e8fe067095ba2ddc971889:::       
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::                       
+*disabled* HelpAssistant:1000:9b45eefa50cbd1f779518231c8ae0fb3:8da1ecee0f0c121facdfb869612a33c6:::   
+*disabled* SUPPORT_388945a0:1002:aad3b435b51404eeaad3b435b51404ee:60a8616c6fd013a1aff2d7c3328b4af8:: 
+vagrant:1004:5229b7f52540641daad3b435b51404ee:e02bc503339d51f71d913c245d35b50b:::                   
+user1:1005:e52cac67419a9a2238f10713b629b565:5835048ce94ad0564e29a924a03510ef:::                    
+user2:1006:e52cac67419a9a22f96f275e1115b16f:e22e04519aa757d12f1219c4f31252f4:::                      
+user3:1007:e52cac67419a9a221b087c18752bdbee:bd7dfbf29a93f93c63cb84790da00e63::: 
+
+10)
+john winhash --format=NT                                                                 │
+Using default input encoding: UTF-8                                                                   │
+Rules/masks using ISO-8859-1                                                                          │
+Loaded 8 password hashes with no different salts (NT [MD4 128/128 AVX 4x3])                           │
+Press 'q' or Ctrl-C to abort, almost any other key for status                                         │
+vagrant          (vagrant)                                                                            │
+password1        (user1)                                                                              │
+                 (Guest)                                                                              │
+password2        (user2)                                                                              │
+password3        (user3)                                                    
