@@ -1,0 +1,10 @@
+EJ Cervantes
+
+a03 - Not sure how variables are being declared. Pretty sure I have the amount of 
+variables correct and types of aritmetic ops correct. Current thoughts...Maybe it had something to do with main().
+
+a05 - Messed up the shl instruction. I could shl once but didn't know how twice 
+looks like in C, plus there is another additive function at the end.
+
+b08 - Got it to match binary except there is one different function called before returning 0 in the one I created?
+Not to sure why, may have to do with using default case

@@ -1,0 +1,34 @@
+EJ Cervantes
+2NOV2018
+CSCI 380
+Vulneserver
+
+*Missed class on day of lab due to illness. All work is on my own
+
+1)The string GOODBYE is being passed in the function _send@16
+
+2)It is being printed in function _ConnectionHandler@4
+
+3)strcpy( ) function copies whole content of one string into another string.
+Whereas, strncpy( ) function copies portion of contents of one string into another string
+
+4)_Function1
+_Function2
+_Function3
+_Function4
+
+5)
+1 - GTER
+2 - KSTET
+3 - TRUN, GMON, LTER
+4 - HTER
+
+6) 88 bits
+
+7) 180 bits
+
+8) If it is bigger than 1372 bits
+
+9)
+
+10)

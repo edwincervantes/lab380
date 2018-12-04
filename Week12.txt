@@ -1,0 +1,27 @@
+C and Assembly pt 3 notes:
+
+Use IDA on host machine but compile all code through VM, use shared folder for this located in /vagrant/src/
+
+Use i86 notes for this to see notations.
+
+Comments are made on lines by presssing ;
+
+When opening on IDA open binary file which does not have a . extension
+
+Pack database before exiting so all work is saved.
+
+Branch is taken on green arrows (if, else)
+
+loc is location of a jump
+
+when you see a jump jz or jnz, it means a conditional statement(if, etc..)
+
+___________________________________Lab: Bomb Challenges_______________________________________
+
+
+*Stored bombs in shared folder between VM (run bomb) and host (IDA)*
+*chmod +x bomb; ./bomb*
+
+bomb
+-p1 "Public speaking is very easy."
+-p2 

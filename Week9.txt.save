@@ -1,0 +1,19 @@
+EJ Cervantes
+CSCI380 Fall 2018
+Lab: C and Assembly Part 1
+21 OCT 2018
+
+1) call    puts
+
+2)int puts(const char *s);
+
+3)int printf(const char *format, ...); 
+
+4)pushl   $.LC0 
+
+5) Does not call puts anymore calls printf and uses a stack 
+
+6) Cleans up stack and hits return function and is passed back in ecx
+
+7) 
+
